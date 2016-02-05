@@ -8,6 +8,7 @@ class SingleNodeTest extends Simulation {
   val httpConf = http
     .baseURL("http://localhost:7474")
     .acceptHeader("application/json")
+    .shareConnections
   //  Uncomment to see the response of each request.
   //  .extraInfoExtractor(extraInfo => {
   //    println(extraInfo.response.body.string)
