@@ -17,16 +17,16 @@ class SingleIndexedNodeTest extends Simulation {
 
 
   val random = new util.Random
-  val feeder = Iterator.continually(Map("user_id" -> random.nextInt()))
+  val feeder = Iterator.continually(Map("person_id" -> random.nextInt()))
 
-  val cypher = """CREATE ( me:User { user_id: {user_id} } )"""
-  val statements = """{"statements" : [{"statement" : "%s", "parameters": {"user_id": %s}}]}"""
+  val cypher = """CREATE ( me:Person { person_id: {person_id} } )"""
+  val statements = """{"statements" : [{"statement" : "%s", "parameters": {"person_id": %s}}]}"""
 
   val setup = scenario("Create Index")
     .exec(http("Create Index")
-      .post("/db/data/schema/index/User")
+      .post("/db/data/schema/index/Person")
       .basicAuth("neo4j", "swordfish")
-      .body(StringBody("""{"property_keys" : ["user_id"] } """))
+      .body(StringBody("""{"property_keys" : ["person_id"] } """))
       .asJSON
       .check(status.in(200,409))
       .silent
@@ -39,7 +39,7 @@ class SingleIndexedNodeTest extends Simulation {
           http("create indexed node")
             .post("/db/data/transaction/commit")
             .basicAuth("neo4j", "swordfish")
-            .body(StringBody(statements.format(cypher, "${user_id}")))
+            .body(StringBody(statements.format(cypher, "${person_id}")))
             .asJSON
             .check(status.is(200))
         )
