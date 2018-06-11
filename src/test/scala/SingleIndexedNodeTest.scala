@@ -9,6 +9,7 @@ class SingleIndexedNodeTest extends Simulation {
     .baseURL("http://localhost:7474")
     .acceptHeader("application/json")
     .shareConnections
+    .basicAuth("neo4j", "swordfish")
   //  Uncomment to see the response of each request.
   //  .extraInfoExtractor(extraInfo => {
   //    println(extraInfo.response.body.string)
